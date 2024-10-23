@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrange Numbers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Arrange the Numbers</h1>
+        <p>Select how many numbers you'd like to arrange:</p>
+
+        <!-- Dropdown to select number of digits -->
+        <label for="digit-select">Select Number of Digits:</label>
+        <select id="digit-select">
+            <option value="2">2 Digits</option>
+            <option value="3">3 Digits</option>
+            <option value="4" selected>4 Digits</option>
+        </select>
+
+        <label for="order-select">Select Order:</label>
+        <select id="order-select">
+            <option value="biggest">Biggest to Smallest</option>
+            <option value="smallest">Smallest to Biggest</option>
+        </select>
+
+        <div id="buttons-container">
+            <button id="generate-numbers" class="btn">Generate Numbers</button>
+        </div>
+        
+        <div id="numbers-container" class="row">
+            <!-- Numbers will be generated here -->
+        </div>
+
+        <div id="placeholders-container" class="row">
+            <!-- Placeholders will be adjusted based on digits selection -->
+            <div class="placeholder" data-index="0"></div>
+            <div class="placeholder" data-index="1"></div>
+            <div class="placeholder" data-index="2"></div>
+            <div class="placeholder" data-index="3"></div>
+        </div>
+        
+        <button id="check-order" class="btn" disabled>Check Order</button>
+        <p id="result"></p>
+
+        <!-- Summary section for correct and wrong attempts -->
+        <div id="summary">
+            <h2>Summary</h2>
+            <p>Correct Attempts: <span id="correct-attempts">0</span></p>
+            <p>Wrong Attempts: <span id="wrong-attempts">0</span></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
