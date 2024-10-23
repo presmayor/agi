@@ -56,6 +56,37 @@ function renderNumbers(numbers = generateRandomNumbers(numberOfDigits)) {
                 draggedItem = null;
             }, 0);
         });
+
+        // Add touch event listeners for mobile
+        numberElement.addEventListener('touchstart', (event) => {
+            event.preventDefault();
+            draggedItem = event.target;
+        });
+
+        numberElement.addEventListener('touchend', (event) => {
+            event.preventDefault();
+            if (draggedItem) {
+                const touch = event.changedTouches[0];
+                const placeholders = document.querySelectorAll('.placeholder');
+                placeholders.forEach(placeholder => {
+                    const rect = placeholder.getBoundingClientRect();
+                    if (
+                        touch.clientX >= rect.left &&
+                        touch.clientX <= rect.right &&
+                        touch.clientY >= rect.top &&
+                        touch.clientY <= rect.bottom
+                    ) {
+                        placeholder.innerText = draggedItem.innerText;
+                        placeholder.classList.add('filled');
+
+                        // Change the color of the number in the container to indicate selection
+                        draggedItem.style.color = 'gray'; // You can choose any color you like
+                        draggedItem.remove();
+                    }
+                });
+                draggedItem = null;
+            }
+        });
     });
 
     adjustPlaceholders(numberOfDigits);  // Adjust placeholders based on digits
@@ -89,6 +120,7 @@ document.querySelectorAll('.placeholder').forEach(placeholder => {
         event.preventDefault();
         if (event.target.classList.contains('placeholder') && !event.target.innerText) {
             event.target.innerText = draggedItem.innerText;
+            draggedItem.style.color = 'gray'; // Change the color to indicate selection
             draggedItem.parentNode.removeChild(draggedItem);
             event.target.classList.add('filled');
         }
@@ -106,11 +138,11 @@ document.getElementById('check-order').addEventListener('click', () => {
         
         if (JSON.stringify(placedNumbers) === JSON.stringify(sortedNumbers)) {
             document.getElementById('result').innerText = "Correct! Well done!";
-            document.getElementById('result').style = "color:green"
+            document.getElementById('result').style = "color:green";
             correctAttempts++; // Increment correct attempts
         } else {
             document.getElementById('result').innerText = "Oops! Try again.";
-            document.getElementById('result').style = "color:red"
+            document.getElementById('result').style = "color:red";
             wrongAttempts++; // Increment wrong attempts
 
             // Reset numbers back to the original position
